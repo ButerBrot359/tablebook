@@ -1,10 +1,10 @@
-package com.buter.test_java;
+package com.tablebook;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TestJavaApplicationTests {
+class TableBookApplicationTests {
 
 	@Test
 	void contextLoads() {
