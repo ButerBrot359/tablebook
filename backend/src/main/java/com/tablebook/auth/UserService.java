@@ -29,6 +29,10 @@ public class UserService {
     }
 
     public UserResponse create(CreateUserRequest request) {
+        if (userRepository.existsByEmail(request.email())) {
+            throw new RuntimeException("Email already exists: " + request.email());
+        }
+
         User user = new User();
         user.setEmail(request.email());
         user.setPasswordHash("FAKE_HASH_" + request.password());
