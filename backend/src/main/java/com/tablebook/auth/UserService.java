@@ -2,6 +2,8 @@ package com.tablebook.auth;
 
 import com.tablebook.auth.dto.CreateUserRequest;
 import com.tablebook.auth.dto.UserResponse;
+import com.tablebook.shared.exception.EmailAlreadyInUseException;
+import com.tablebook.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,13 +26,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponse findById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User", id));
         return toResponse(user);
     }
 
     public UserResponse create(CreateUserRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("Email already exists: " + request.email());
+            throw new EmailAlreadyInUseException(request.email());
         }
 
         User user = new User();
