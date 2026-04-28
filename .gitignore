@@ -1,0 +1,28 @@
+# IDE
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Java/Maven
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+backend/HELP.md
+
+# Node/Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env files (никогда не коммитим!)
+.env
+.env.local
+*.env
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# OS
+Thumbs.db
