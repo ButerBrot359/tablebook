@@ -1,4 +1,4 @@
-package com.tablebook.auth;
+package com.tablebook.auth.security;
 
 import com.tablebook.auth.user.User;
 import io.jsonwebtoken.Claims;

@@ -1,6 +1,6 @@
 package com.tablebook.auth.user;
 
-import com.tablebook.auth.JwtService;
+import com.tablebook.auth.security.JwtService;
 import com.tablebook.auth.user.dto.CreateUserRequest;
 import com.tablebook.auth.user.dto.UserResponse;
 import jakarta.validation.Valid;

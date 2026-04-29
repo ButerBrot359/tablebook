@@ -1,4 +1,4 @@
-package com.tablebook.auth;
+package com.tablebook.auth.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
