@@ -20,7 +20,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticateFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final String AUTH_HEADER = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
@@ -34,7 +34,6 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
-
         String token = extractToken(request);
 
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -42,6 +41,7 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+
     }
 
     private void authenticate(String token, HttpServletRequest request) {
@@ -60,10 +60,11 @@ public class JwtAuthenticateFilter extends OncePerRequestFilter {
                     null,
                     List.of(authority)
             );
-            auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(auth);
-        } catch (Exception e) {}
+
+        } catch (Exception e) {
+        }
     }
 
     private String extractToken(HttpServletRequest request) {
