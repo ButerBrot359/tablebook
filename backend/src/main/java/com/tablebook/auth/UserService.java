@@ -5,6 +5,7 @@ import com.tablebook.auth.dto.UserResponse;
 import com.tablebook.shared.exception.EmailAlreadyInUseException;
 import com.tablebook.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.List;
 @Transactional
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<UserResponse> findAll() {
@@ -37,12 +39,19 @@ public class UserService {
 
         User user = new User();
         user.setEmail(request.email());
-        user.setPasswordHash("FAKE_HASH_" + request.password());
+        user.setPasswordHash(passwordEncoder.encode(request.password()));
         user.setFullName(request.fullName());
         user.setPhone(request.phone());
 
         User saved = userRepository.save(user);
         return toResponse(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean checkPassword(String email, String rawPassword) {
+        return userRepository.findByEmail(email)
+                .map(user -> passwordEncoder.matches(rawPassword, user.getPasswordHash()))
+                .orElse(false);
     }
 
     private UserResponse toResponse(User user) {
