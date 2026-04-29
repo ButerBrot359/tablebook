@@ -15,6 +15,7 @@ import java.util.List;
 public class UserTestController {
 
     private final UserService userService;
+    private final JwtService jwtService;
 
     @GetMapping
     public List<UserResponse> findAll() {
@@ -31,5 +32,15 @@ public class UserTestController {
     public UserResponse create(@Valid @RequestBody CreateUserRequest request) {
         return userService.create(request);
     }
+
+    @GetMapping("{id}/token")
+    public TokenResponse generateToken(@PathVariable Long id) {
+        User user = userService.findUserById(id);
+        String token = jwtService.generateAccessToken(user);
+
+        return new TokenResponse(token);
+    }
+
+    public record TokenResponse(String token) {}
 
 }
