@@ -1,7 +1,7 @@
-package com.tablebook.auth;
+package com.tablebook.auth.user;
 
-import com.tablebook.auth.dto.CreateUserRequest;
-import com.tablebook.auth.dto.UserResponse;
+import com.tablebook.auth.user.dto.CreateUserRequest;
+import com.tablebook.auth.user.dto.UserResponse;
 import com.tablebook.shared.exception.EmailAlreadyInUseException;
 import com.tablebook.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

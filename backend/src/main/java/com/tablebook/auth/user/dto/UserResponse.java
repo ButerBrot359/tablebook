@@ -1,6 +1,6 @@
-package com.tablebook.auth.dto;
+package com.tablebook.auth.user.dto;
 
-import com.tablebook.auth.PlatformRole;
+import com.tablebook.auth.user.PlatformRole;
 
 import java.time.OffsetDateTime;
 

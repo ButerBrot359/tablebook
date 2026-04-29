@@ -1,4 +1,4 @@
-package com.tablebook.auth;
+package com.tablebook.auth.user;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

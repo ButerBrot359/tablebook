@@ -1,4 +1,4 @@
-package com.tablebook.auth;
+package com.tablebook.auth.user;
 
 public enum PlatformRole {
     USER,

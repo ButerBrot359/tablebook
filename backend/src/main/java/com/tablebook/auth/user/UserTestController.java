@@ -1,7 +1,8 @@
-package com.tablebook.auth;
+package com.tablebook.auth.user;
 
-import com.tablebook.auth.dto.CreateUserRequest;
-import com.tablebook.auth.dto.UserResponse;
+import com.tablebook.auth.JwtService;
+import com.tablebook.auth.user.dto.CreateUserRequest;
+import com.tablebook.auth.user.dto.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
