@@ -2,7 +2,6 @@ package com.tablebook.auth.user;
 
 import com.tablebook.auth.user.dto.CreateUserRequest;
 import com.tablebook.auth.user.dto.UserResponse;
-import com.tablebook.shared.exception.EmailAlreadyInUseException;
 import com.tablebook.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
