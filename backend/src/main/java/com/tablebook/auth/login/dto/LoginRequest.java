@@ -1,4 +1,4 @@
-package com.tablebook.auth.user.dto;
+package com.tablebook.auth.login.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
