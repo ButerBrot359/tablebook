@@ -1,5 +1,6 @@
 package com.tablebook.auth.user;
 
+import com.tablebook.auth.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MeController {
 
+    private final UserService userService;
+
     @GetMapping
-    public String me(@AuthenticationPrincipal User user) {
-        if (user == null) {
-            return "no auth";
-        }
-        return "Hello, " + user.getEmail() + " (id=" + user.getId() + ")";
+    public UserResponse me(@AuthenticationPrincipal User user) {
+        return userService.toResponse(user);
     }
 }
