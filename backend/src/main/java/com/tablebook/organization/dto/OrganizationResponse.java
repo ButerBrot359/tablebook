@@ -2,7 +2,7 @@ package com.tablebook.organization.dto;
 
 import java.time.OffsetDateTime;
 
-public record OrganisationResponse(
+public record OrganizationResponse(
         Long id,
         String name,
         String slug,
