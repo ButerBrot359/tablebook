@@ -2,8 +2,11 @@ package com.tablebook.organization;
 
 import com.tablebook.auth.user.User;
 import com.tablebook.organization.dto.OrganizationResponse;
+import com.tablebook.organization.dto.UpdateOrganizationRequest;
+import com.tablebook.shared.exception.ForbiddenException;
 import com.tablebook.shared.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +40,34 @@ public class OrganizationService {
 
         membershipRepository.save(ownerMembership);
         return saved;
+    }
+
+    @Transactional
+    public Organization update(Long id, UpdateOrganizationRequest request, User currentUser) {
+        Organization org = organizationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Organization", id));
+
+        Membership membership = membershipRepository
+                .findMembershipByUserAndOrganization(currentUser, org)
+                .orElseThrow(() -> new ForbiddenException("You are not a member of this organization"));
+
+        if (membership.getRole() != OrganizationRole.OWNER) {
+            throw new ForbiddenException("Only OWNER can update organization");
+        }
+
+        if (request.slug() != null && !request.slug().equals(org.getSlug())) {
+            if (organizationRepository.existsBySlugAndIdNot(request.slug(), id)) {
+                throw new SlugAlreadyTakenException(request.slug());
+            }
+
+            org.setSlug(request.slug());
+        }
+
+        if (request.name() != null) {
+            org.setName(request.name());
+        }
+
+        return org;
     }
 
     public Organization findBySlug(String slug) {

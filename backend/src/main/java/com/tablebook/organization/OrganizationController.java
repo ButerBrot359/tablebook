@@ -3,6 +3,7 @@ package com.tablebook.organization;
 import com.tablebook.auth.user.User;
 import com.tablebook.organization.dto.CreateOrganizationRequest;
 import com.tablebook.organization.dto.OrganizationResponse;
+import com.tablebook.organization.dto.UpdateOrganizationRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,17 @@ public class OrganizationController {
 
     }
 
+    @PatchMapping("/{slug}")
+    public OrganizationResponse update(
+            @PathVariable String slug,
+            @Valid @RequestBody UpdateOrganizationRequest request,
+            @AuthenticationPrincipal User currentUser
+    ) {
+        Organization org = organizationService.findBySlug(slug);
+        Organization updated = organizationService.update(org.getId(), request, currentUser);
+        return organizationService.toResponse(updated);
+    }
+
     @GetMapping("/me")
     public List<OrganizationResponse> myOrganizations(@AuthenticationPrincipal User currentUser) {
         return organizationService.findMyOrganizations(currentUser).stream()
@@ -45,5 +57,7 @@ public class OrganizationController {
         Organization org = organizationService.findBySlug(slug);
         return organizationService.toResponse(org);
     }
+
+
 
 }
