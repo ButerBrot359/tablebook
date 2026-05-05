@@ -23,6 +23,10 @@ frontend/.vite/
 # Logs
 *.log
 logs/
+table-book-docs/
+
+# Claude memory
+.claude/
 
 # OS
 Thumbs.db
