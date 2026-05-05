@@ -128,7 +128,7 @@ public class RestaurantService {
         );
     }
 
-    private void requireRole(User user, Organization org, Set<OrganizationRole> allowedRoles) {
+    void requireRole(User user, Organization org, Set<OrganizationRole> allowedRoles) {
         Membership membership = membershipRepository.findMembershipByUserAndOrganization(user, org)
                 .orElseThrow(() -> new ForbiddenException("You are not a member of this organization"));
 
